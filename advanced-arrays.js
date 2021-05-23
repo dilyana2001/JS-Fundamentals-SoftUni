@@ -1,10 +1,10 @@
 // As a gladiator, Peter has cool Inventory. He loves to buy new equipment. You are given Peter’s inventory with all of
 // his equipment -&gt; strings, separated by whitespace.
 // You may receive the following commands:
-//  Buy {equipment}
-//  Trash {equipment}
-//  Repair {equipment}
-//  Upgrade {equipment}-{upgrade}
+//  Buy {equipment}
+//  Trash {equipment}
+//  Repair {equipment}
+//  Upgrade {equipment}-{upgrade}
 // If you receive Buy command, you should add the equipment at last position in the inventory, but only if it isn't
 // bought already.
 // If you receive Trash command, delete the equipment if it exists.
@@ -13,7 +13,7 @@
 // following format: &quot;{equipment}:{upgrade}&quot;;
 // Input / Consrtaints
 // You will receive an array of strings. Each element of the array is a command.
-//  In the first input element, you will receive Peter's inventory – sequence of equipment names, separated by
+//  In the first input element, you will receive Peter's inventory – sequence of equipment names, separated by
 // space.
 
 function gladiatorInventory(arr) {
@@ -63,17 +63,17 @@ function gladiatorInventory(arr) {
 
 // Write a function that receives an array of integers and array of string commands and executes them over the
 // array. The commands are as follows:
-//  add &lt;index&gt; &lt;element&gt; – adds element at the specified index (elements right from this position
+//  add &lt;index&gt; &lt;element&gt; – adds element at the specified index (elements right from this position
 // inclusively are shifted to the right).
-//  addMany &lt;index&gt;&lt;element 1&gt; &lt;element 2&gt; … &lt;element n&gt; – adds a set of elements at the
+//  addMany &lt;index&gt;&lt;element 1&gt; &lt;element 2&gt; … &lt;element n&gt; – adds a set of elements at the
 // specified index.
-//  contains &lt;element&gt; – prints the index of the first occurrence of the specified element (if exists) in the
+//  contains &lt;element&gt; – prints the index of the first occurrence of the specified element (if exists) in the
 // array or -1 if the element is not found.
-//  remove &lt;index&gt; – removes the element at the specified index.
-//  shift &lt;positions&gt; – shifts every element of the array the number of positions to the left (with
+//  remove &lt;index&gt; – removes the element at the specified index.
+//  shift &lt;positions&gt; – shifts every element of the array the number of positions to the left (with
 // rotation).
 // o For example, [1, 2, 3, 4, 5] -&gt; shift 2 -&gt; [3, 4, 5, 1, 2]
-//  sumPairs – sums the elements in the array by pairs (first + second, third + fourth, …).
+//  sumPairs – sums the elements in the array by pairs (first + second, third + fourth, …).
 // o For example, [1, 2, 4, 5, 6, 7, 8] -&gt; [3, 9, 13, 8].
 // print – stop receiving more commands and print the last state of the array.
 
@@ -117,10 +117,10 @@ function arrayManipulationsExercises(arr, conditions) {
 // ====================================================================================================================================================
 
 // Write a function that manipulates an array of numbers.
-//  Add {number}: add a number to the end of the array
-//  Remove {number}: remove number from the array
-//  RemoveAt {index}: removes number at a given index
-//  Insert {number} {index}: inserts a number at a given index
+//  Add {number}: add a number to the end of the array
+//  Remove {number}: remove number from the array
+//  RemoveAt {index}: removes number at a given index
+//  Insert {number} {index}: inserts a number at a given index
 // Note: All the indices will be valid!
 // Print the final state of the array (separated by single space).
 // The input comes as array of strings. First element will be a string containing the array to manipulate. Every other
