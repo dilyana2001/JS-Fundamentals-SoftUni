@@ -1,12 +1,12 @@
 // You have initial health 100 and initial coins 0. You will be given a string, representing the dungeons rooms. Each
 // room is separated with &#39;|&#39; (vertical bar): 'room1|room2|room3…'
 // Each room contains item or a monster and a number, separated by space. ('item/monster number')
-//  If the first part is 'potion': you are healed with the number in the second part. But your health cannot
+//  If the first part is 'potion': you are healed with the number in the second part. But your health cannot
 // exceed your initial health (100). Print: 'You healed for {0} hp.'
 // After that, print your current health: 'Current health: {0} hp.'
-//  If the first part is 'chest': You&#39;ve found some coins, the number in the second part. Print: 'You found {0}
+//  If the first part is 'chest': You&#39;ve found some coins, the number in the second part. Print: 'You found {0}
 // coins.'
-//  In any other case you are facing a monster, you are going to fight.
+//  In any other case you are facing a monster, you are going to fight.
 // The second part of the room, contains the attack of the monster. You should remove the monster&#39;s attack
 // from your health.
 // o If you are not dead (health &lt;= 0) you&#39;ve slain the monster, and you should print ('You slayed
@@ -14,7 +14,7 @@
 // o If you&#39;ve died, print 'You died! Killed by {monster}.' and your quest is over.
 // Print the best room you`ve manage to reach: 'Best room: {room}'.
 // If you managed to go through all the rooms in the dungeon, print on the next three lines:
-// 'You&#39;ve made it!', 'Coins: {coins}', 'Health: {health}'.
+// 'You've made it!', 'Coins: {coins}', 'Health: {health}'.
 
 function dungeonestDark(array) {
     array = array.join(',').split('|').join(' ').split(' ');
