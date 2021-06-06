@@ -94,3 +94,88 @@ function dictionary(json) {
 //     '{"Tape":"A narrow strip of material, typically used to hold  or fasten something."}',
 //     '{"Microphone":"An instrument for converting sound waves into electrical energy variations  which may then be amplified, transmitted, or recorded."}'
 // ])
+
+// =================================================================================================================================================
+
+
+// First array (at index 0) will hold all flights on specific sector in the airport. The second array (at index 1) will
+// contain new changed statuses of some of the flights at this airport. The third array (at index 2) will have a
+// single string, which will be flight status you need to check. When you put all flights into an object, and change
+// the statuses depends on the new information on the second array. You must print all flights with the given status
+// from the last array.
+function flightSchedule(arr) {
+    let cancelledToFly = []
+    let schedule = {}
+    let status = arr.pop().join(' ')
+    let cancelled = arr.pop()
+    arr = arr.flat()
+    for (let line of cancelled) {
+        let [flyNumber, status] = line.split(' ')
+        cancelledToFly.push(flyNumber)
+    }
+    for (let line of arr) {
+        let [flyNumber, destination] = line.split(' ')
+        if (status === 'Cancelled') {
+            if (cancelledToFly.includes(flyNumber)) {
+                schedule[flyNumber] = destination
+            }
+        } else {
+            if (!cancelledToFly.includes(flyNumber)) {
+                schedule[flyNumber] = destination
+            }
+        }
+    }
+    for (let el in schedule) {
+        console.log(`{ Destination: '${schedule[el]}', Status: '${status}' }`)
+    }
+}
+// //expected output:
+// // { Destination: 'Alabama', Status: 'Cancelled' }
+// // { Destination: 'California', Status: 'Cancelled' }
+// // { Destination: 'Texas', Status: 'Cancelled' }
+// flightSchedule([
+//     ['WN269 Delaware',
+//         'FL2269 Oregon',
+//         'WN498 Las Vegas',
+//         'WN3145 Ohio',
+//         'WN612 Alabama',
+//         'WN4010 New York',
+//         'WN1173 California',
+//         'DL2120 Texas',
+//         'KL5744 Illinois',
+//         'WN678 Pennsylvania'
+//     ],
+//     ['DL2120 Cancelled',
+//         'WN612 Cancelled',
+//         'WN1173 Cancelled',
+//         'SK430 Cancelled'
+//     ],
+//     ['Cancelled']
+// ])
+// // expected output:
+// // { Destination: 'Delaware', Status: 'Ready to fly' }
+// // { Destination: 'Oregon', Status: 'Ready to fly' }
+// // { Destination: 'Las', Status: 'Ready to fly' }
+// // { Destination: 'Ohio', Status: 'Ready to fly' }
+// // { Destination: 'New', Status: 'Ready to fly' }
+// // { Destination: 'Illinois', Status: 'Ready to fly' }
+// // { Destination: 'Pennsylvania', Status: 'Ready to fly' }
+// flightSchedule([
+//     ['WN269 Delaware',
+//         'FL2269 Oregon',
+//         'WN498 Las Vegas',
+//         'WN3145 Ohio',
+//         'WN612 Alabama',
+//         'WN4010 New York',
+//         'WN1173 California',
+//         'DL2120 Texas',
+//         'KL5744 Illinois',
+//         'WN678 Pennsylvania'
+//     ],
+//     ['DL2120 Cancelled',
+//         'WN612  Cancelled ',
+//         'WN1173 Cancelled ',
+//         'SK330 Cancelled'
+//     ],
+//     ['Ready to fly']
+// ])
