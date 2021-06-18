@@ -1,82 +1,26 @@
-function passReset(arr) {
-    let password = arr.shift()
-    let result = ''
-    while (arr[0] != 'Done') {
-        let [command, ...args] = arr[0].split(' ')
-        if (command === 'TakeOdd') {
-            password = password.split('')
-            password.forEach((e, i) => i % 2 == 1 ? result += password[i] : false)
-            console.log(result)
-            password = result
-        } else if (command === 'Cut') {
-            let [index, length] = args
-            index = Number(index)
-            length = Number(length)
-            let firstPart = password.substring(0, index)
-            let secondPart = password.substring(index + length)
-            password = firstPart + secondPart;
-            console.log(password)
-        } else if (command === 'Substitute') {
-            let [substring, substitute] = args
-            if (password.includes(substring)) {
-                password = password.replace(new RegExp(`${substring}`, 'g'), substitute)
-                console.log(password)
-            } else {
-                console.log(`Nothing to replace!`);
-            }
-        }
-        arr.shift()
-    }
-    arr[0] === 'Done' ? console.log(`Your password is: ${password}`) : false
-}
-// passReset([
-//         'Siiceercaroetavm!:?:ahsott.:i:nstupmomceqr ',
-//         'TakeOdd',
-//         'Cut 15 3',
-//         'Substitute :: -',
-//         'Substitute | ^',
-//         'Done'
-//     ])
-// passReset([
-//     'up8rgoyg3r1atmlmanaiunagt!-irs7!1fgulnnnqy',
-//     'TakeOdd',
-//     'Cut 18 2',
-//     'Substitute ! ***',
-//     'Substitute ? .!.',
-//     'Done'
-// ])
-
-
 function fancyBarcodes(input) {
-    let result = []
-    for (let i = 1; i <= Number(input[0]); i++) {
-        let regex = /@[#]+(?<word>[A-Z][[a-zA-Z0-9]{4,}[A-Z])@[#]+/
-        let currentResult = regex.exec(input[i])
-        if (currentResult !== null) {
-            result.push(currentResult.groups.word)
-        } else {
-            result.push(null)
-        }
-    }
-    for (let command of result) {
-        if (command !== null) {
-            let match = command.match(/[\d]?[\d+]/g)
-            if (match !== null) {
-                console.log(`Product group: ${match.join('')}`);
-            } else {
-                console.log(`Product group: 00`);
-            }
+    input.shift()
+    let regex = /@[#]+(?<word>[A-Z][[a-zA-Z0-9]{4,}[A-Z])@[#]+/
+    input.forEach(row => {
+        if (regex.test(row)) {
+            let match = regex.exec(row)
+            let numbers = [...match.groups.word]
+                .filter(char => /\d/.test(char))
+                .join('')
+            console.log(`Product group: ${numbers === '' ? '00' : numbers}`)
         } else {
             console.log(`Invalid barcode`)
         }
-    }
+    })
 }
+
+
 // fancyBarcodes([
-//         '3',
-//         '@#FreshFisH@#',
-//         '@###Brea0D@###',
-//         '@##Che46sE@##',
-//     ])
+//     '3',
+//     '@#FreshFisH@#',
+//     '@###Brea0D@###',
+//     '@##Che46sE@##',
+// ])
 // fancyBarcodes([
 //     '6',
 //     '@###Val1d1teM@###',
@@ -162,16 +106,62 @@ function heroesOfCodeAndLogicVII(arr) {
 //     'CastSpell - Kyrre - 15 - ViewEarth',
 //     'End'
 // ])
-heroesOfCodeAndLogicVII([
-    '4',
-    'Adela 90 150',
-    'SirMullich 70 40',
-    'Ivor 1 111',
-    'Tyris 94 61',
-    'Heal - SirMullich - 50',
-    'Recharge - Adela - 100',
-    'CastSpell - Tyris - 1000 - Fireball',
-    'TakeDamage - Tyris - 99 - Fireball',
-    'TakeDamage - Ivor - 3 - Mosquito',
-    'End'
-])
+// heroesOfCodeAndLogicVII([
+//     '4',
+//     'Adela 90 150',
+//     'SirMullich 70 40',
+//     'Ivor 1 111',
+//     'Tyris 94 61',
+//     'Heal - SirMullich - 50',
+//     'Recharge - Adela - 100',
+//     'CastSpell - Tyris - 1000 - Fireball',
+//     'TakeDamage - Tyris - 99 - Fireball',
+//     'TakeDamage - Ivor - 3 - Mosquito',
+//     'End'
+// ])
+
+function passReset(arr) {
+    let password = arr.shift()
+    arr.forEach(row => {
+        if (row !== 'Done') {
+            let [command, ...args] = row.split(' ')
+            if (command === 'TakeOdd') {
+                password = [...password]
+                    .filter((c, i) => i % 2 !== 0)
+                    .join('')
+                console.log(password)
+            } else if (command === 'Cut') {
+                let index = Number(args[0])
+                let length = Number(args[1])
+                let firstPart = password.substring(0, index)
+                let secondPart = password.substring(index + length)
+                password = firstPart + secondPart
+                console.log(password)
+            } else if (command === 'Substitute') {
+                if (password.includes(args[0])) {
+                    password = password.replace(new RegExp(`${args[0]}`, 'g'), args[1])
+                    console.log(password)
+                } else {
+                    console.log(`Nothing to replace!`)
+                }
+            }
+        }
+    })
+    console.log(`Your password is: ${password}`)
+}
+// passReset([
+//         'Siiceercaroetavm!:?:ahsott.:i:nstupmomceqr ',
+//         'TakeOdd',
+//         'Cut 15 3',
+//         'Substitute :: -',
+//         'Substitute | ^',
+//         'Done'
+//     ])
+// passReset([
+//     'up8rgoyg3r1atmlmanaiunagt!-irs7!1fgulnnnqy',
+//     'TakeOdd',
+//     'Cut 18 2',
+//     'Substitute ! ***',
+//     'Substitute ? .!.',
+//     'Done'
+// ])
