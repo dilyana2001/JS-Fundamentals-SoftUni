@@ -90,86 +90,88 @@ function fancyBarcodes(input) {
 
 
 function heroesOfCodeAndLogicVII(arr) {
+
     let heroNumber = Number(arr.shift())
     let heroes = {}
     arr.splice(0, heroNumber).map(row => row.split(' ')).map(row => {
-        heroes[row[0]] = { health: Number(row[1]), mana: Number(row[2]) }
+        heroes[row[0]] = { hp: Number(row[1]), mp: Number(row[2]) }
     })
-    let line = arr.shift()
-    while (line !== 'End') {
-        let command = line.split(' - ')
-        switch (command[0]) {
-            case 'CastSpell':
-                castSpell(command[1], command[2], command[3])
-                break
-            case 'TakeDamage':
-                takeDamage(command[1], command[2], command[3])
-                break
-            case 'Recharge':
-                recharge(command[1], command[2])
-                break
-            case 'Heal':
-                heal(command[1], command[2])
-                break
-        }
-        line = arr.shift()
+
+    let commandParser = {
+        'CastSpell': castSpell,
+        'TakeDamage': takeDamage,
+        'Recharge': recharge,
+        'Heal': heal
     }
 
-    function castSpell(heroName, manaNeeded, spellName) {
-        manaNeeded = Number(manaNeeded)
-        if (heroes[heroName].mana - manaNeeded >= 0) {
-            heroes[heroName].mana -= manaNeeded
-            console.log(`${heroName} has successfully cast ${spellName} and now has ${heroes[heroName].mana} MP!`)
-        } else {
-            console.log(`${heroName} does not have enough MP to cast ${spellName}!`)
+    arr.forEach(line => {
+        let [command, ...args] = line.split(' - ')
+        if (command !== 'End') {
+            console.log(commandParser[command](heroes, ...args))
         }
+    })
+
+    Object.entries(heroes).sort((a, b) => a[0].localeCompare(b[0])).sort((a, b) => b[1].hp - a[1].hp)
+        .map(row => console.log(`${row[0]}\n  HP: ${row[1].hp}\n  MP: ${row[1].mp}`))
+
+    function castSpell(heroes, heroName, mpNeeded, spellName) {
+        mpNeeded = Number(mpNeeded)
+        let hero = heroes[heroName]
+        if (hero.mp >= mpNeeded) {
+            hero.mp -= mpNeeded
+            return `${heroName} has successfully cast ${spellName} and now has ${hero.mp} MP!`
+        }
+        return `${heroName} does not have enough MP to cast ${spellName}!`
     }
 
-    function takeDamage(heroName, dmg, attacker) {
-        dmg = Number(dmg)
-        if (heroes[heroName].health - dmg > 0) {
-            heroes[heroName].health -= dmg
-            console.log(`${heroName} was hit for ${dmg} HP by ${attacker} and now has ${heroes[heroName].health} HP left!`)
-        } else {
-            delete heroes[heroName]
-            console.log(`${heroName} has been killed by ${attacker}!`)
+    function takeDamage(heroes, heroName, damage, attacker) {
+        damage = Number(damage)
+        let hero = heroes[heroName]
+        hero.hp -= damage
+        if (hero.hp > 0) {
+            return `${heroName} was hit for ${damage} HP by ${attacker} and now has ${hero.hp} HP left!`
         }
+        delete heroes[heroName]
+        return `${heroName} has been killed by ${attacker}!`
     }
 
-    function recharge(heroName, amount) {
+    function recharge(heroes, heroName, amount) {
         amount = Number(amount)
-        if (heroes[heroName].mana + amount > 200) {
-            let gift = 200 - heroes[heroName].mana
-            heroes[heroName].mana = 200
-            console.log(`${heroName} recharged for ${gift} MP!`)
-        } else {
-            heroes[heroName].mana += amount
-            console.log(`${heroName} recharged for ${amount} MP!`)
-        }
+        let hero = heroes[heroName]
+        let oldValue = hero.mp
+        hero.mp = Math.min(200, hero.mp + amount)
+        return `${heroName} recharged for ${hero.mp - oldValue} MP!`
     }
 
-    function heal(heroName, amount) {
+    function heal(heroes, heroName, amount) {
         amount = Number(amount)
-        if (heroes[heroName].health + amount > 100) {
-            let healed = 100 - heroes[heroName].health
-            heroes[heroName].health = 100
-            console.log(`${heroName} healed for ${healed} HP!`)
-        } else {
-            heroes[heroName].health += amount
-            console.log(`${heroName} healed for ${amount} HP!`)
-        }
+        let hero = heroes[heroName]
+        let oldValue = hero.hp
+        hero.hp = Math.min(100, hero.hp + amount)
+        return `${heroName} healed for ${hero.hp - oldValue} HP!`
     }
-
-    Object.entries(heroes).sort((a, b) => a[0].localeCompare(b[0])).sort((a, b) => b[1].health - a[1].health)
-        .map(row => console.log(`${row[0]}\n  HP: ${row[1].health}\n  MP: ${row[1].mana}`))
 }
+
+// heroesOfCodeAndLogicVII([
+//     '2',
+//     'Solmyr 85 120',
+//     'Kyrre 99 50',
+//     'Heal - Solmyr - 10',
+//     'Recharge - Solmyr - 50',
+//     'TakeDamage - Kyrre - 66 - Orc',
+//     'CastSpell - Kyrre - 15 - ViewEarth',
+//     'End'
+// ])
 heroesOfCodeAndLogicVII([
-    '2',
-    'Solmyr 85 120',
-    'Kyrre 99 50',
-    'Heal - Solmyr - 10',
-    'Recharge - Solmyr - 50',
-    'TakeDamage - Kyrre - 66 - Orc',
-    'CastSpell - Kyrre - 15 - ViewEarth',
+    '4',
+    'Adela 90 150',
+    'SirMullich 70 40',
+    'Ivor 1 111',
+    'Tyris 94 61',
+    'Heal - SirMullich - 50',
+    'Recharge - Adela - 100',
+    'CastSpell - Tyris - 1000 - Fireball',
+    'TakeDamage - Tyris - 99 - Fireball',
+    'TakeDamage - Ivor - 3 - Mosquito',
     'End'
 ])
