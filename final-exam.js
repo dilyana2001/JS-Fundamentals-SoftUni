@@ -119,9 +119,9 @@ function heroesOfCodeAndLogicVII(arr) {
         manaNeeded = Number(manaNeeded)
         if (heroes[heroName].mana - manaNeeded >= 0) {
             heroes[heroName].mana -= manaNeeded
-            console.log(`${heroName} has successfully cast ${spellName} and now has ${heroes[heroName].mana} mana!`)
+            console.log(`${heroName} has successfully cast ${spellName} and now has ${heroes[heroName].mana} MP!`)
         } else {
-            console.log(`${heroName} does not have enough mana to cast ${spellName}!`)
+            console.log(`${heroName} does not have enough MP to cast ${spellName}!`)
         }
     }
 
@@ -129,7 +129,7 @@ function heroesOfCodeAndLogicVII(arr) {
         dmg = Number(dmg)
         if (heroes[heroName].health - dmg > 0) {
             heroes[heroName].health -= dmg
-            console.log(`${heroName} was hit for ${dmg} health by ${attacker} and now has ${heroes[heroName].health} health left!`)
+            console.log(`${heroName} was hit for ${dmg} HP by ${attacker} and now has ${heroes[heroName].health} HP left!`)
         } else {
             delete heroes[heroName]
             console.log(`${heroName} has been killed by ${attacker}!`)
@@ -141,10 +141,10 @@ function heroesOfCodeAndLogicVII(arr) {
         if (heroes[heroName].mana + amount > 200) {
             let gift = 200 - heroes[heroName].mana
             heroes[heroName].mana = 200
-            console.log(`${heroName} recharged for ${gift} mana!`)
+            console.log(`${heroName} recharged for ${gift} MP!`)
         } else {
             heroes[heroName].mana += amount
-            console.log(`${heroName} recharged for ${amount} mana!`)
+            console.log(`${heroName} recharged for ${amount} MP!`)
         }
     }
 
@@ -153,15 +153,15 @@ function heroesOfCodeAndLogicVII(arr) {
         if (heroes[heroName].health + amount > 100) {
             let healed = 100 - heroes[heroName].health
             heroes[heroName].health = 100
-            console.log(`${heroName} healed for ${healed} health!`)
+            console.log(`${heroName} healed for ${healed} HP!`)
         } else {
             heroes[heroName].health += amount
-            console.log(`${heroName} healed for ${amount} health!`)
+            console.log(`${heroName} healed for ${amount} HP!`)
         }
     }
 
     Object.entries(heroes).sort((a, b) => a[0].localeCompare(b[0])).sort((a, b) => b[1].health - a[1].health)
-        .map(row => console.log(`${row[0]}\n  health: ${row[1].health}\n  mana: ${row[1].mana}`))
+        .map(row => console.log(`${row[0]}\n  HP: ${row[1].health}\n  MP: ${row[1].mana}`))
 }
 heroesOfCodeAndLogicVII([
     '2',
