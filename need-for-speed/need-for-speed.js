@@ -6,7 +6,7 @@ function needForSpeedIII(arr) {
         cars[row[0]] = { mileage: Number(row[1]), fuel: Number(row[2]) }
     })
 
-    let commandParsed = {
+    let commandParser = {
         'Drive': drive,
         'Refuel': refuel,
         'Revert': revert
@@ -14,7 +14,7 @@ function needForSpeedIII(arr) {
     arr.forEach(row => {
         let [command, ...args] = row.split(' : ')
         if (command !== 'Stop') {
-            console.log(commandParsed[command](cars, ...args))
+            console.log(commandParser[command](cars, ...args))
         }
     })
 
