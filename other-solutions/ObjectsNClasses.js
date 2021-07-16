@@ -6,8 +6,8 @@ let person = {
         console.log(`Hello, im ${this.lastName}, im ${this.age} years old.`)
     }
 };
-person.hairColor = 'red'; // Zakachame drugi properties, kazwa se RUN TIME
-person['eye color'] = 'brown'; // drug nachin
+person.hairColor = 'red'; 
+person['eye color'] = 'brown';
 person.grades = [6, 6, 6, 6, 5, 6, 5];
 // console.log(person)
 // console.log(person.grades)
@@ -15,12 +15,11 @@ person.grades = [6, 6, 6, 6, 5, 6, 5];
 // person.sayHello()
 
 
-// imame masivi, pulnim gi s for cikli i syzdavame OBEKTI!
 function storeProvision(stock, ordered) {
     let shop = {};
     for (let i = 0; i < stock.length; i += 2) {
         let product = stock[i]; // 0 element, 2, 4.... 4eten
-        shop[product] = Number(stock[i + 1]); // wzema dvoikata 0 i 1, 2i3.... (tuk se zadava ne4etniq element)
+        shop[product] = Number(stock[i + 1]); 
     }
     console.log(shop) // {Chips: 5, CocaCola: 9, Bananas: 14, Pasta: 4, Beer: 2}
 }
@@ -34,7 +33,7 @@ function storeProvision(stock, ordered) {
 
 
 
-function personFromLab(firstName, lastName, age) { //CLASS
+function personFromLab(firstName, lastName, age) { 
     return {
         firstName,
         lastName,
@@ -44,18 +43,18 @@ function personFromLab(firstName, lastName, age) { //CLASS
 // console.log(person('Peter', 'Pan', '20'))
 
 //METHODS
-let keys = Object.keys(person) // vry6ta masiv s propertitata
+let keys = Object.keys(person) 
     // console.log(keys)
-let values = Object.values(person) //vry6ta masiv sys stoinostite na propertitata
+let values = Object.values(person) 
     // console.log(keys, values)
-let entries = Object.entries(person) // wry6ta masiv ot TUPLE(dvoiki)
+let entries = Object.entries(person)
     // console.log(entries[0]) 
 
 // FOR-IN ,FOR-OF AND .ENTRIES
-for (let key in person) { // obikalq obekt
+for (let key in person) {
     // console.log(`${key}:  ${person[key]}`)
 }
-for (let key of Object.keys(person)) { //razlikata mejdu for-in i for-of e w  Object.keys(person)
+for (let key of Object.keys(person)) { 
     // console.log(`${key}:  ${person[key]}`)
 }
 for (let [key, value] of Object.entries(person)) {
@@ -67,22 +66,22 @@ for (let [key, value] of Object.entries(person)) {
 //REFERENCE: ARRAY, OBJECTS, FUNCTION
 
 //MEMORY:
-//Stack:       zapazwat se v pametta v razli4ni kletki.                                           
+//Stack:                                               
 let num = 3;
 let text = 'text';
 let isAlive = true;
-let first = num; //first i num imat ednakva stojsnost , ne sa na edin i sy6t adres
+let first = num; 
 
 // HEAP:
 let arr = [1, 2, 3];
 let obj = {
     name: 'f'
 }
-let newArr = arr; // newArr ima sy6tiq adres kato arr.
-let newNewArr = newArr.slice(0); // pravim kopie i ve4e sa razli4ni masivi : newArr i newNewArr. Imat razli4ni adresi. Pri promqna na newArr, newNewArr nqma da se izmeni.
+
+let newNewArr = newArr.slice(0);
 newNewArr[3] = 100;
 
-//Primer:
+
 
 function main() {
     let firstName = 'Tanya';
@@ -140,7 +139,7 @@ let parsed2 = JSON.parse(json2)
 //CLASS
 class Button {
     constructor(backgroundColor, textColor, text, hasDropdown) {
-        this.backgroundColor = backgroundColor; // konstruirame wytreshnostite na klasa
+        this.backgroundColor = backgroundColor;
         this.textColor = textColor;
         this.text = text;
         this.hasDropdown = hasDropdown
@@ -150,12 +149,12 @@ class Button {
     }
 }
 
-let someButton = new Button('blue', 'pink', 'Courses', true); // new e kliu4ova duma za syzdavane na instanciq ...vikane na klas 'Button', za da syzdade obekt po shablona(class-a)
+let someButton = new Button('blue', 'pink', 'Courses', true); 
 
 // someButton.showText() //Courses
 // console.log(someButton.backgroundColor)  //blue
 
-// // method za pravene na obekti ot KLASS s map , printirane ot funkciq , koqto ima w klasa za vseki obekt, polu4en ot input i izwedeni na now red.
+
 // return data
 //     .map(str => {
 //         return new Employee(str)
@@ -165,29 +164,29 @@ let someButton = new Button('blue', 'pink', 'Courses', true); // new e kliu4ova 
 //     })
 //     .join('\n');
 
-// // sy6to moje i s forEach:
+
 // data.map(str => {
 // return new Employee(str)
 // }).forEach(obj => {
 //     console.log(obj.print())
 // })
 
-function storage(strArr) { // storage.get(product) => kliu4ovata komanda. NA storage ,vzemame producta, qwno vytre s imeto i quantitito?
+function storage(strArr) { 
     let storage = new Map()
     for (let el of strArr) {
         let line = el.split(' ')
         let product = line[0]
         let quantity = Number(line[1])
         if (!storage.has(product)) {
-            storage.set(product, quantity) // ako nqmame tozi product, izvedi vsqka dvoika bez promqna
+            storage.set(product, quantity) 
         } else {
-            let currentQuantity = storage.get(product); // ako go imame , syzdavame promenliva, koqto da GETVA produkta ot storage-a ni
-            let newQuantity = currentQuantity + quantity // druga promenliva, koqto da dobavq kym veche sy6testvuvashta dvoika koli4estvoto
-            storage.set(product, newQuantity) // SETVAME veche novata PREZAPISANA dvoika
+            let currentQuantity = storage.get(product); 
+            let newQuantity = currentQuantity + quantity 
+            storage.set(product, newQuantity) 
         }
     }
     for (let keyValuePair of storage) {
-        console.log(`${keyValuePair[0]} -> ${keyValuePair[1]}`) // dvoiki of storage se logvat izvyn gorniq cikyl for
+        console.log(`${keyValuePair[0]} -> ${keyValuePair[1]}`) 
     }
 }
 // storage([
