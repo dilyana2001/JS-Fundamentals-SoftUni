@@ -630,42 +630,6 @@ function legendaryFarming(str) {
 // legendaryFarming('3 Motes 5 stones 5 Shards 6 leathers 255 fragments')
 // legendaryFarming('123 silver 6 shards 8 shards 5 motes 9 fangs 75 motes 103 MOTES 8 Shards 86 Motes')
 
-function companyUsers(strArr) {
-    let companyNames = {}
-    for (let line of strArr) {
-        let [company, id] = line.split(' -> ')
-        if (!companyNames.hasOwnProperty(company)) {
-            companyNames[company] = id
-
-        } else {
-            let currentID = companyNames[company]
-            let newId = `${ id } ${currentID }`
-            companyNames[company] = newId
-        }
-    }
-    let result = Object.entries(companyNames).sort((a, b) => a[0].localeCompare(b[0]))
-    for (let el of result) {
-        console.log(el[0])
-        let employees = el[1].split(' ').sort((a, b) => a[0].localeCompare(b[0]))
-        let employeeSet = new Set(employees)
-        for (let el of employeeSet) {
-            console.log(`--${el}`)
-        }
-    }
-}
-// companyUsers([
-//     'SoftUni -> AA12345',
-//     'SoftUni -> BB12345',
-//     'Microsoft -> CC12345',
-//     'HP -> BB12345'
-// ])
-// companyUsers([
-//     'SoftUni -> AA12345',
-//     'SoftUni -> CC12344',
-//     'Lenovo -> XX23456',
-//     'SoftUni -> AA12345',
-//     'Movement -> DD11111'
-// ])
 
 
 function arenaTier(strArr) {
