@@ -21,10 +21,22 @@ function solve(arr) {
                         }
                     } else {
                         let [firstHero, secondHero] = heroName.split(' vs ')
-                            // if (heroes.hasOwnProperty(firstHero) && heroes.hasOwnProperty(secondHero)) {
-                        console.log(Object.entries(heroes))
+                        if (heroes.hasOwnProperty(firstHero) && heroes.hasOwnProperty(secondHero)) {
+                            let g1 = Object.entries(heroes[firstHero]);
+                            let g2 = Object.entries(heroes[secondHero]);
+                            let isBattle = false;
+                            g1.forEach(el1 => {
+                                g2.forEach(el2 => {
+                                    if (el1[0] === el2[0]) {
+                                        isBattle = true;
+                                    }
+                                });
+                            });
+                            if (isBattle) {
+                                console.log(heroes[firstHero])
+                            }
+                        }
                     }
-
                 } else {
                     // Slowest but very readable and doesn't require a variable way for finding the last or the only one element of an array
                     // myArray.slice(-1)[0]
