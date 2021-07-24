@@ -1,6 +1,5 @@
 function solve(arr) {
     let socialMedia = { users: [], articles: [], comments: [] };
-
     arr.forEach(line => {
         if (line.includes('user')) {
             let [, userName] = line.split('user ');
@@ -10,7 +9,7 @@ function solve(arr) {
         } else if (line.includes('article')) {
             let [, articleName] = line.split('article ');
             if (!socialMedia.articles.hasOwnProperty(articleName)) {
-                socialMedia.articles.push([articleName]);
+                socialMedia.articles.push([articleName, 0]);
             }
         } else if (line.includes('posts on')) {
             let [userName, post] = line.split(' posts on ');
@@ -18,11 +17,17 @@ function solve(arr) {
             let [commentTitle, commentContent] = comment.split(', ');
             socialMedia.comments.push([userName, articleName, commentTitle, commentContent]);
             if (socialMedia.articles.flat().includes(articleName)) {
-                socialMedia.articles.push([articleName, 1])
-            }
-
+                socialMedia.articles.push([articleName, 1]);
+            };
         }
     });
+
+
+    //At the end sort the articles by count of comments and print the users with their comments ordered
+    // by usernames in ascending.
+
+
+
     console.log(socialMedia)
 }
 // Comments on Movies
@@ -46,7 +51,7 @@ solve([
     'user uSeR4',
     'user lastUser',
     'uSeR4 posts on Books: I like books, I do really like them',
-    'uSeR4 posts on  Movies: I also like movies, I reallydo',
+    'uSeR4 posts on Movies: I also like movies, I really do',
     'someUser posts on Shopping: title, I go shopping every day',
     'someUser posts on Movies: Like, I also like movies very much'
 ])
