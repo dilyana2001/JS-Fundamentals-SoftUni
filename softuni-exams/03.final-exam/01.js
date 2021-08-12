@@ -2,14 +2,14 @@ function secretChat(arr) {
     let secretCode = arr.shift();
     let commandParser = {
         'InsertSpace': index => {
-            secretCode = secretCode.substring(0, index) + ' ' + secretCode.substring(index, secretCode.length);
+            secretCode = secretCode.substring(0, index) + ' ' + secretCode.substring(index);
             console.log(secretCode);
         },
         'Reverse': subWord => {
             if (secretCode.includes(subWord)) {
                 let index = secretCode.indexOf(subWord);
                 subWord = subWord.split('').reverse().join('')
-                secretCode = secretCode.substring(0, index) + subWord + secretCode.substring(index + subWord.length, secretCode.length);
+                secretCode = secretCode.substring(0, index) + subWord + secretCode.substring(index + subWord.length);
                 console.log(secretCode);
             } else {
                 console.log('error');
