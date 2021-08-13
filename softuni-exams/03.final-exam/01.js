@@ -9,17 +9,17 @@ function secretChat(arr) {
             if (secretCode.includes(subWord)) {
                 let index = secretCode.indexOf(subWord);
                 subWord = subWord.split('').reverse().join('')
-                secretCode = secretCode.substring(0, index) + subWord + secretCode.substring(index + subWord.length);
+                secretCode = secretCode.substring(0, index) + secretCode.substring(index + subWord.length) + subWord
                 console.log(secretCode);
             } else {
                 console.log('error');
             }
         },
         'ChangeAll': (subWord, replacement) => {
-            if (secretCode.includes(subWord)) {
-                secretCode = secretCode.replace(new RegExp(`${subWord}`, 'g'), replacement);
-                console.log(secretCode);
+            while (secretCode.includes(subWord)) {
+                secretCode = secretCode.replace(subWord, replacement);
             }
+            console.log(secretCode);
         }
     }
 
