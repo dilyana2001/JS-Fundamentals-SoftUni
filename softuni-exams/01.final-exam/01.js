@@ -5,7 +5,9 @@ function imitationGame(arr) {
         'Move': n => msg = msg.substring(n) + msg.substring(0, n),
         'Insert': (i, v) => msg = msg.substring(0, i) + v + msg.substring(i),
         'ChangeAll': (s, r) => {
-            while (msg.includes(s)) msg = msg.replace(new RegExp(`${s}`, 'g'), r)
+            while (msg.includes(s)) {
+                msg = msg.replace(s, r)
+            }
         },
         'Decode': () => console.log(`The decrypted message is: ${msg}`)
     }
